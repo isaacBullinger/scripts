@@ -1,0 +1,402 @@
+CIT 112 Hands-on Application Activity 
+Week 10
+
+1.	Chapter 27 Flow Control: Branching with if
+
+1.1	Create a BASH script called script1.sh which takes in the name of a month (e.g. Jan, Feb, Mar, ...) and a day (e.g. 1, 2, 3, ...) as command arguments.  Display whether the month is an odd (e.g. Jan, Mar, ...) or even (e.g. Feb, Apr, ...) month as well as whether the day is an odd or even day.  Your input and output should look similar to the one below:
+
+okuda@okuda:~/Day10$ . ./script1.sh Jan 1
+Jan is an odd month
+1 is an odd day
+okuda@okuda:~/Day10$ . ./script1.sh Feb 2
+Feb is an even month
+2 is an even day
+okuda@okuda:~/Day10$ . ./script1.sh May 4
+May is an odd month
+4 is an even day
+
+1.2	Run the script and paste the output
+
+isaac@isaac-VirtualBox:~/bin$ script1.sh Jan 1
+Jan is an odd month
+1 is an odd day
+isaac@isaac-VirtualBox:~/bin$ script1.sh Feb 2
+Feb is an even month
+2 is an even day
+isaac@isaac-VirtualBox:~/bin$ script1.sh May 4
+May is an odd month
+4 is an even day
+
+1.3	Paste the content of the script
+
+#!/bin/bash
+
+MONTH=$1
+DAY=$2
+
+MONTHS="JanFebMarAprMayJunJulAugSepOctNovDec"
+X=${MONTHS%%$MONTH*}
+MONTHNUM=${#X}
+MONTHNUMBER=$((MONTHNUM/3+1))
+MONTHCHECK=$((MONTHNUMBER%2))
+DAYCHECK=$(($DAY%2))
+
+if [[ $MONTHCHECK == 0 ]]; then
+    echo "$MONTH is an even month"
+elif [[ $MONTHCHECK == 1 ]]; then
+    echo "$MONTH is an odd month"
+else
+    echo "Invalid input, please try again..."
+    fi
+if [[ "$DAY" > 31 ]]; then
+    echo "Day is greater than 31, please try again..."
+    exit
+elif [[ $DAYCHECK == 0 ]]; then
+    echo "$DAY is an even day"
+elif [[ $DAYCHECK == 1 ]]; then
+    echo "$DAY is an odd day"
+else
+    echo "Invalid input, please try again..."
+fi
+exit
+
+2.	Chapter 28 Reading Keyboard Input
+
+2.1	Create a BASH script called script2.sh which takes in a directory name and a file name as command arguments.  The script consists of two logical parts.
+Part 1)
+If the specified directory does NOT exist, prompt the user if the directory should be created.
+If "No", end the script.
+If "Yes", create the specified directory.
+Part 2)
+If the specified directory already exists, verify that the specified file exists in the specified directory.
+If the file does not exist, prompt the user if the file should be created under the specified directory.
+If "No", print the long listing of the files in the specified directory and end the script. 
+If "Yes", create the file under the specified directory, print the long listing of the files in the specified directory, and end the script.
+
+Your script output should look similar to the one below:
+
+okuda@okuda:~/Day10$ . ./script2.sh DirA fileA
+DirA directory does not exist. Do you want to create it (Y/N)?n
+
+okuda@okuda:~/Day10$ . ./script2.sh DirA fileA
+DirA directory does not exist. Do you want to create it (Y/N)?y
+Creating DirA directory.
+fileA file does not exist in DirA directory.  Do you want to create it (Y/N)?n
+Here is the list of files in DirA directory:
+total 0
+
+okuda@okuda:~/Day10$ . ./script2.sh DirA fileA
+DirA directory exists.
+fileA file does not exist in DirA directory.  Do you want to create it (Y/N)?y
+Creating fileA file in DirA directory.
+Here is the list of files in DirA directory:
+total 0
+-rw-rw-r-- 1 okuda okuda 0 Apr 28 15:06 fileA
+
+okuda@okuda:~/Day10$ . ./script2.sh DirA fileB
+DirA directory exists.
+fileB file does not exist in DirA directory.  Do you want to create it (Y/N)?y
+Creating fileB file in DirA directory.
+Here is the list of files in DirA directory:
+total 0
+-rw-rw-r-- 1 okuda okuda 0 Apr 28 15:06 fileA
+-rw-rw-r-- 1 okuda okuda 0 Apr 28 15:06 fileB
+
+okuda@okuda:~/Day10$ 
+
+2.2	Run the script and paste the output
+
+isaac@isaac-VirtualBox:~/bin$ script2.sh
+DirA
+fileA
+DirA directory does not exist. Do you want to create it (Y/N)? 
+n
+isaac@isaac-VirtualBox:~/bin$ script2.sh
+DirA
+fileA
+DirA directory does not exist. Do you want to create it (Y/N)? 
+y
+Creating DirA directory. 
+fileA does not exist in DirA directory. Do you want to create it (Y/N)? 
+n
+Here is the list of files in DirA directory.
+total 0
+isaac@isaac-VirtualBox:~/bin$ script2.sh
+DirA
+fileA
+DirA directory exists.
+fileA does not exist in DirA directory. Do you want to create it (Y/N)? 
+y
+Creating fileA file in DirA directory.
+Here is the list of files in DirA directory.
+total 0
+-rw-rw-r-- 1 isaac isaac 0 Mar 10 21:30 fileA
+isaac@isaac-VirtualBox:~/bin$ script2.sh
+DirA
+fileB
+DirA directory exists.
+fileB does not exist in DirA directory. Do you want to create it (Y/N)? 
+y
+Creating fileB file in DirA directory.
+Here is the list of files in DirA directory.
+total 0
+-rw-rw-r-- 1 isaac isaac 0 Mar 10 21:30 fileA
+-rw-rw-r-- 1 isaac isaac 0 Mar 10 21:31 fileB
+isaac@isaac-VirtualBox:~/bin$ script2.sh
+DirA
+fileA
+DirA directory exists.
+File exists. Here is the list of files in the DirA directory:
+total 0
+-rw-rw-r-- 1 isaac isaac 0 Mar 10 21:30 fileA
+-rw-rw-r-- 1 isaac isaac 0 Mar 10 21:31 fileB
+
+
+2.3	Paste the content of the script
+
+#! /bin/bash
+
+DIRECTORY=$1
+FILE=$2
+
+if [[ -d "$DIRECTORY" ]]; then
+    echo "$DIRECTORY directory exists."
+else
+    echo "$DIRECTORY directory does not exist. Do you want to create it (Y/N)? "
+    read ANS1
+    if [[ "$ANS1" == "y" ]]; then
+        echo "Creating $DIRECTORY directory. "
+        mkdir $DIRECTORY
+    else
+        exit 1
+    fi
+fi
+if [[ -e "$DIRECTORY/$FILE" ]]; then
+    if [ -f "$DIRECTORY/$FILE" ]
+        then
+        echo "File exists. Here is the list of files in the $DIRECTORY directory:"
+        ls -l $DIRECTORY
+    fi
+else
+    echo "$FILE does not exist in $DIRECTORY directory. Do you want to create it (Y/N)? "
+    read ANS2
+    if [[ "$ANS2" == "y" ]]; then
+        echo "Creating $FILE file in $DIRECTORY directory."
+        touch $DIRECTORY/$FILE
+        echo "Here is the list of files in $DIRECTORY directory."
+        ls -l $DIRECTORY
+    else
+        echo "Here is the list of files in $DIRECTORY directory."
+        ls -l $DIRECTORY
+        exit 1
+    fi
+fi
+exit
+
+3.	Chapter 29 Flow Control: Looping with while/until
+
+3.1	Create a BASH script called script3.sh which takes in a file name as a command argument.  The script consists of 6 logical parts.  
+Part 1) Print the menu options as shown below and wait for the user response.  
+
+1. Display the Memory usage
+2. Display the Disk usage
+3. Print the content of the /etc/hosts file
+4. Exit
+
+Part 2) If option 1 is selected, execute "free -h" command.  
+Part 3) If option 2 is selected, execute "df -h" command.  
+Part 4) If option 3 is selected, print the content of the file as specified in the command argument.  Use "while read ...  < filename" command, instead of "cat" command.  
+Part 5) if option 4 is selected, end the script.  
+Part 6) The whole script should be in a while true loop.
+
+Your script output should look similar to the one below:
+
+okuda@okuda:~/Day10$ . ./script3.sh ~/.vimrc
+
+1. Display the Memory usage
+2. Display the Disk usage
+3. Print the content of the /etc/hosts file
+4. Exit
+
+Choose your option [1-4]:1
+
+              total        used        free      shared  buff/cache   available
+Mem:          3.8Gi       630Mi       1.8Gi       8.0Mi       1.4Gi       3.0Gi
+Swap:         1.1Gi          0B       1.1Gi
+
+1. Display the Memory usage
+2. Display the Disk usage
+3. Print the content of the /etc/hosts file
+4. Exit
+
+Choose your option [1-4]:2
+
+Filesystem      Size  Used Avail Use% Mounted on
+udev            1.9G     0  1.9G   0% /dev
+tmpfs           394M  1.4M  393M   1% /run
+/dev/sda5        24G  6.5G   17G  29% /
+tmpfs           2.0G     0  2.0G   0% /dev/shm
+tmpfs           5.0M  4.0K  5.0M   1% /run/lock
+tmpfs           2.0G     0  2.0G   0% /sys/fs/cgroup
+/dev/loop0       55M   55M     0 100% /snap/core18/1880
+/dev/loop2      219M  219M     0 100% /snap/gnome-3-34-1804/66
+/dev/loop3       52M   52M     0 100% /snap/snap-store/518
+/dev/loop1       66M   66M     0 100% /snap/gtk-common-themes/1515
+/dev/loop4       65M   65M     0 100% /snap/gtk-common-themes/1514
+/dev/loop5       56M   56M     0 100% /snap/core18/1997
+/dev/loop6      256M  256M     0 100% /snap/gnome-3-34-1804/36
+/dev/loop7       33M   33M     0 100% /snap/snapd/11588
+/dev/loop8       50M   50M     0 100% /snap/snap-store/467
+/dev/loop9       30M   30M     0 100% /snap/snapd/8542
+/dev/sda1       511M  4.0K  511M   1% /boot/efi
+tmpfs           394M   20K  394M   1% /run/user/1000
+/dev/sr0         59M   59M     0 100% /media/okuda/VBox_GAs_6.1.18
+
+1. Display the disk usage
+2. Display the memory usage
+3. Print the content of /home/okuda/.vimrc file
+4. Exit
+
+Choose your option [1-4]:3
+
+syntax on
+set tabstop=4
+set softtabstop=4
+set expandtab
+set incsearch
+
+1. Display the disk usage
+2. Display the memory usage
+3. Print the content of /home/okuda/.vimrc file
+4. Exit
+
+Choose your option [1-4]:4
+
+Bye!
+okuda@okuda:~/Day10$ 
+
+
+3.2	Run the script and paste the output
+
+isaac@isaac-VirtualBox:~/bin$ script3.sh /etc/hosts
+
+
+	1. Display the Memory usage
+	2. Display the Disk usage
+	3. Print the content of the /etc/hosts file
+	4. Exit
+
+	
+Choose your option [1-4]: 1
+
+              total        used        free      shared  buff/cache   available
+Mem:          7.8Gi       798Mi       5.7Gi        21Mi       1.3Gi       6.7Gi
+Swap:         1.4Gi          0B       1.4Gi
+
+
+	1. Display the Memory usage
+	2. Display the Disk usage
+	3. Print the content of the /etc/hosts file
+	4. Exit
+
+	
+Choose your option [1-4]: 2
+
+Filesystem      Size  Used Avail Use% Mounted on
+udev            3.9G     0  3.9G   0% /dev
+tmpfs           795M  1.4M  794M   1% /run
+/dev/sda5        29G   11G   17G  40% /
+tmpfs           3.9G     0  3.9G   0% /dev/shm
+tmpfs           5.0M  4.0K  5.0M   1% /run/lock
+tmpfs           3.9G     0  3.9G   0% /sys/fs/cgroup
+/dev/loop0      128K  128K     0 100% /snap/bare/5
+/dev/loop2       64M   64M     0 100% /snap/core20/1828
+/dev/loop1       64M   64M     0 100% /snap/core20/1822
+/dev/loop3      347M  347M     0 100% /snap/gnome-3-38-2004/115
+/dev/loop6       55M   55M     0 100% /snap/snap-store/558
+/dev/loop5       46M   46M     0 100% /snap/snap-store/638
+/dev/loop4      347M  347M     0 100% /snap/gnome-3-38-2004/119
+/dev/loop7       92M   92M     0 100% /snap/gtk-common-themes/1535
+/dev/loop9       50M   50M     0 100% /snap/snapd/18357
+/dev/loop8       50M   50M     0 100% /snap/snapd/17950
+/dev/sda1       511M  4.0K  511M   1% /boot/efi
+tmpfs           795M   24K  795M   1% /run/user/1000
+/dev/sr0         51M   51M     0 100% /media/isaac/VBox_GAs_7.0.6
+
+
+	1. Display the Memory usage
+	2. Display the Disk usage
+	3. Print the content of the /etc/hosts file
+	4. Exit
+
+	
+Choose your option [1-4]: 3
+
+This is a line: 127.0.0.1	localhost
+This is a line: 127.0.1.1	isaac-VirtualBox
+This is a line: 
+This is a line: # The following lines are desirable for IPv6 capable hosts
+This is a line: ::1     ip6-localhost ip6-loopback
+This is a line: fe00::0 ip6-localnet
+This is a line: ff00::0 ip6-mcastprefix
+This is a line: ff02::1 ip6-allnodes
+This is a line: ff02::2 ip6-allrouters
+
+
+	1. Display the Memory usage
+	2. Display the Disk usage
+	3. Print the content of the /etc/hosts file
+	4. Exit
+
+	
+Choose your option [1-4]: 4
+
+Program terminated.
+
+3.3	Paste the content of the script
+
+#! /bin/bash
+
+FILE=$1
+DELAY=1
+
+while [[ "$REPLY" != 4 ]]; do
+
+    echo "
+
+    1. Display the Memory usage
+    2. Display the Disk usage
+    3. Print the content of the $FILE file
+    4. Exit
+
+    "
+    read -p "Choose your option [1-4]: "
+    echo ""
+    if [[ "$REPLY" =~ ^[1-4]$ ]]; then
+        if [[ $REPLY == 1 ]]; then
+            free -h
+            sleep "$DELAY"
+        fi
+        if [[ $REPLY == 2 ]]; then
+            df -h
+            sleep "$DELAY"
+        fi
+        if [[ $REPLY == 3 ]]; then
+            while read LINE; do
+            echo "This is a line: $LINE"
+            done < $FILE
+            sleep "$DELAY"
+        fi
+        if [[ $REPLY == 4 ]]; then
+            echo "Program terminated."
+            sleep "$DELAY"
+            exit
+        fi
+    else
+        echo "Invalid input, please try again!..."
+        sleep "$DELAY"
+    fi
+done
+exit
+
+

@@ -1,0 +1,91 @@
+CIT 112 Hands-on Application Activity 
+Week 11
+
+1.   Chapter 22 Printing
+
+	1.1 	Redirect the output of the ls -la ~ command to a file named pr_test
+
+ls -la ~>> pr_test
+
+	1.2 	Using the pr command, format the pr_test file for a double-spaced printing with 	the line numbers and a header which says "Files in My Home Directory" 
+
+pr -d -n -h "Files in My Home Directory" pr_test
+
+	1.3 	Create a printer using the CUPS Web portal.  Start a web browser (e.g. FireFox) 		on Ubuntu and open a webpage at http://localhost:631.  Go to "Administration" tab and 		select "Add Printer" option.  Choose "Internet Printing Protocol (ipp)" and press 		"Continue".  In the "Connection" window, enter the following bogus address: 		"ipp://1.2.3.4" and press "Continue".  Give the name of "test_printer1" and press 		"Continue".  Choose "Generic" for "Make:" and press "Continue".  Choose "Generic PDF 	printer (en)" for "Model:".  Press "Add Printer".  Press "Set Default Options" button.  		In a few seconds, newly added printer information will be displayed.
+
+	1.4 	Add another printer called test_printer2 from the command line by entering the 		following command: sudo lpadmin -p test_printer2 -E -v ipp://1.2.3.4
+
+sudo lpadmin -p test_printer2 -E -v ipp://1.2.3.4
+
+	1.5 	Check the status of the printers from the command line
+
+lpstat -a
+
+	1.6 	Using the lp command, print the pr_test file to the test_printer2
+
+lp -d test_printer2 pr_test
+
+	1.7	Display the print queue 
+
+lpq -a
+
+	1.8 	Cancel the print job in the test_printer2 printer queue
+
+cancel 1
+
+	1.9 	Using the lpr command, print the pr_test file to test_printer2
+
+lpr -P test_printer2 pr_test
+
+	1.10 	Using the lpq command, display the print queue in test_printer2
+
+lpq -P test_printer2
+
+	1.11 	Using lprm command, remove the print job from test_printer2
+	
+lprm 1
+
+	1.12	Remove test_printer2 using the following command: sudo lpadmin -x test_printer2
+
+sudo lpadmin -x test_printer2
+
+	1.13 	Remove test_printer1 using the CUPS web portal.  Start a web browser (e.g. 		FireFox) on Ubuntu and open a webpage at http://localhost:631.  Go to "Administration" 		tab and select "Manage Printers" option.  Select "test_printer1" and choose "Delete 	Printer" under "Administration" drop-down menu.  Press "Delete Printer" button.
+
+
+
+2.   Chapter 23 Compiling Programs
+
+	2.1	Navigate to Python's website (https://www.python.org/) and download the latest 	source release as a tarball.
+
+	2.2 	Once the file is downloaded extract the compressed tar file.
+
+gunzip Python-3.10.10.tgz; tar -xf Python-3.10.10.tar
+
+	2.3	Change your directory to the new Python-x.x.x directory
+
+cd Python-3.10.10
+
+	2.4	View the contents of the directories and read the README file
+
+less README.rst
+
+	2.5	Using "sudo apt install" command, installing the following libraries that Python depends on: build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libreadline-dev libffi-dev curl
+
+sudo apt install build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libreadline-dev libffi-dev curl
+
+	2.6	Run the configure shell script
+
+./configure
+
+	2.7	Run the make command to set everything up.  It will take some time to complete.
+
+make
+
+	2.8	Run the "sudo make install" command to install the program.  It will take some 		time to complete.
+
+sudo make install
+
+	2.9 	Verify that the Python install worked using the "python3 -version" command
+
+python3 --version
+

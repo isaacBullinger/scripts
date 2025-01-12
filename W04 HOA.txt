@@ -1,0 +1,84 @@
+﻿CIT 112 Hands-on Applicaiton Activity 
+Week 04
+
+
+1. Chapter 6. Redirection 
+
+	1.1 Redirect the output of ls -l command to a file named "output.txt"
+ls -l > output.txt
+	1.2 Display the content of "output.txt" file
+less output.txt
+	1.3 Enter the command "ls -l top" and redirect the error message to a file named 		"error.txt"
+ls -l top 2> error.txt
+	1.4 Display the content of "error.txt" file 
+less error.txt
+	1.5 Display the content of "output.txt" using cat command with redirection
+cat < output.txt
+	1.6 Redirect the output of a date command to output.txt without overwriting the file
+date >> output.txt
+	1.7 Verify that the output of the date command is appended to "output.txt" file
+less output.txt
+	1.8 Type the command "ls -R /var/tmp" and redirect both the stdout and stderr to the 	file named "output2.txt"
+ls -R /var/tmp &> output2.txt
+less output2.txt
+	1.9 Type the command "ls -R /var/tmp" and redirect the stdout to "out.txt" and the 		stderr to "error.txt" at the same time  
+ls -R /var/tmp 1> out.txt 2> error.txt
+	1.10 Type the command "ls -R /var/tmp" and redirect any errors to the blackhole
+ls -R /var/tmp 2> /dev/null
+	1.11 Display the content of "/var/log/syslog" file using cat command and pipe the 		output to less command 
+cat /var/log/syslog | less
+	1.12 Display the content of "/var/log/syslog" file using cat command and filter the 	output so that only those lines that include the word "systemd" will be displayed
+cat /var/log/syslog | grep systemd
+	1.13 Display only the first 20 results of the command given in the step above
+cat /var/log/syslog | grep systemd | head -n 20
+	1.14 Display only the last 10 results of the command given in Step 1.12
+cat /var/log/syslog | grep systemd | tail -n 10
+	1.15 Display the content of "/var/log/syslog" file using cat command and filter the 	output so that only those lines with the word "error" or "Error" (case insensitive) 	will be displayed on the terminal as well as saved to a file named "result.txt" 
+cat /var/log/syslog | grep -i error | tee result.txt
+less result.txt
+	1.16 Using the cat command and redirection, create a file called "ships" with the 		following lines of text:
+cat > ships
+Enterprise 
+Millennium_Falcon
+Apollo 
+Enterprise
+Orion
+^d
+      
+	1.17 Display only the unique lines in the "ships" file you created in the step above
+cat ships | sort | uniq 
+
+
+2. Chapter 7. Seeing the World as the Shell Sees it
+
+	2.1 Use the echo command, display the message "Good Afternoon"
+echo Good Afternoon
+	2.2 Using the echo command and brace expansion, display the words "DayA DayB DayC"
+echo Day{A..C}
+	2.3 Using the brace expansion, create 3 directories named "test1" "test2" and "test3" 
+mkdir test{1..3}
+	2.4 Using the brace expansion, create files "fun1" "fun2" and "fun3" in each directory 	you created in the previous step.  Do it with one command.
+touch test{1..3}/fun{1..3}
+ls test{1..3}
+	2.5 Using the echo command and pathname expansion, list all files and directories in 	your home directory that start with a capital D
+echo D*
+	2.6 Using the echo command and pathname expansion, list all files and directories in 	your home directory that end with a letter s
+echo *s
+	2.7 Using the echo command and pathname expansion, list all files and directories in 	your home directory that start with an uppercase letter
+echo [[:upper:]]*
+	2.8 Using the echo command and variable expansion, display your current working 		directory
+echo $(pwd)
+	2.9 Create a variable named "sample1" and give it a value of 5. Then create a 		variable named "sample2" and give it a value of 7
+sample1=5 sample2=7
+	2.10 Using the echo command and arithmetic expansion, add sample1 and sample2 		together and display the sum
+echo $((sample1 + sample2))
+	2.11 Using the echo command and arithmetic expansion, multiply sample1 and sample2 		and display the product
+echo $((sample1 * sample2))
+	2.12 Using the echo command and arithmetic expansion, divide sample1 by sample2 and 	display the quotient
+echo $((sample1 / sample2))
+	2.13 Use the echo command and the escape sequence, display the following string:
+	$ 8.00 / hour (that's my hourly wage) * 8 hours * 5 days = $ 350.00 / week (did I do 	the math right?)
+echo "\$ 8.00 / hour (that's my hourly wage) * 8 hours * 5 days = \$ 350.00 / week (did I do 	the math right?)"
+	2.14 Using the echo command, display the following equation (Do not display the 		result of the math. Display the equation itself):
+ 	$(( $sample1 + $sample2 )) 
+echo '$(( $sample1 + $sample2 ))'

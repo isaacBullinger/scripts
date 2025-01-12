@@ -1,0 +1,74 @@
+CIT 112 Hands-on Application Activity 
+Week 03
+
+
+1. Chapter 4. Manipulating Files and Directories 
+
+      1.1 List all files that start with x86 in the /bin directory 
+ls /bin/x86*
+      1.2 List all files that start with loop in the /dev directory
+ls /dev/loop*
+      1.3 List all files that start with loop and end with a single digit in the /dev directory
+ls /dev/loop[0-9] 
+      1.4 List all files that include 2 (two) in their filenames in /dev directory
+ls /dev/*2*     
+      1.5 List files ttyS20 through ttyS29 in /dev directory
+ls /dev/ttyS2[0-9]
+      1.6 list everything in /dev that ends with a digit
+ls /dev/*[0-9]
+      1.7 Create a directory called HOME3 in your home directory
+mkdir HOME3
+      1.8 Create files called file1, file2, file3, file4, and file5 under ~/HOME3 directory
+touch ~/HOME3/file{1..5}
+      1.9 Copy /etc/services file to ~/HOME3 directory and name it file6
+cp /etc/services ~/HOME3/file6
+      1.10 Make a new directory named Day3fun under ~/HOME3 directory
+mkdir Day3fun
+      1.11 Move file1 through file6 into the new directory Day3fun
+mv file* Day3fun
+      1.12 rename Day3fun directory to Day3_fun
+mv Day3fun Day3_fun
+      1.13 cp Day3_fun directory and its content to Day3_fiesta directory
+cp -r Day3_fun Day3_fiesta
+      1.14 Remove Day3_fiesta directory and all of its content.
+rm -r Day3_fiesta
+      1.15 Create a hard link for file6 and name it file6_hard
+ln file6 file6_hard
+      1.16 Create a soft link for file6 and name it file6_soft
+ln -s file6 file6_soft
+      1.17 Long list files file6, file6_hard, and file6_soft with their inode numbrers
+ls -li file6*
+      1.18 remove file6
+rm file6
+      1.19 Check the contents of file6_hard and file6_soft
+less file6_hard file6_soft
+
+
+
+2. Chapter 5. Working with Commands
+
+      2.1 Determine the type of command for mkdir
+type mkdir
+      2.2 Determine the type of command for type
+type type
+      2.3 Determine the type of command for ls command
+type ls
+      2.4 Where is the command man located at?
+which man
+      2.5 Display a helpful information about the mkdir command and its usage in three ways.
+info mkdir
+man mkdir
+mkdir --help
+      2.6 Find all the man pages that have to do with calendar
+apropos calendar
+      2.7 Display a one-line man page description of ls
+whatis ls
+      2.8 Create a new command called mycommand that gives you a long listing of all files including hidden files
+alias mycommand='ls -la'
+      2.9 Try your new command on the root directory /
+mycommand /
+      2.10 Remove your custom command
+unalias mycommand
+type mycommand
+
+

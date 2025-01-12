@@ -1,0 +1,26 @@
+CIT 112 Hands-on Applicaiton Activity 
+Week 06 
+
+	1. Chapter 11. The Environment  
+
+	1.1 Display your current working directory using the echo command
+echo $PWD
+	1.2 Display all the variables that are set in your current shell, including shell 		functions
+printenv | less
+	1.3 Display all the exported variables 
+printenv
+	1.4 Find the value of the UID variable
+echo $UID
+	1.5 Create a variable named OS and give it a value of Linux.  Create another variable 		named DISTRO and give it a value of Ubuntu 
+OS=Linux
+DISTRO=Ubuntu
+	1.6 Create a variable named MYOS and give it a vale of "Ubuntu-Linux" using the OS and 		DISTRO variables you defined earlier.  Export the MYOS variable.
+MYOS=$DISTRO-$OS; export MYOS
+	1.7 Start a child bash process and verify that the MYOS variable has been exported
+bash; echo $MYOS
+
+	2. Chapter 12. A gentle introduction to vi 
+
+	2.1 run vimtutor ($ vimtutor) on your terminal.  Complete till the end of Lesson 6 by 	following the instruction in vimtutor.
+
+

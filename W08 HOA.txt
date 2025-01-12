@@ -1,0 +1,79 @@
+CIT 112 Hands-on Application Activity 
+Week 08
+
+1.  Chapter 19 Regular Expression
+
+	1.1	Redirect the output of the man page for ls command to a file named ls.txt
+man ls > ls.txt
+	1.2 	Using grep, display lines that contain the word with in ls.txt
+grep with ls.txt
+	1.3	Find all words or phrases in the file that start with a letter l (el) followed by 		any two letters and then ending with a letter t
+grep 'l..t' ls.txt
+	1.4	Create a directory named test_day8 and change the working directory to it.  		Create file01 through file20 in one command.
+mkdir test_day8; touch test_day8/file{01..20}
+	1.5	List the file names in test_day8 directory and filter the output using the 		grep command to display only those lines that contain file02 through file08
+ls ./test_day8 | grep -eh "^file[0][2-8]"
+	1.6	List the file names in test_day8 directory and filter the output using the 		grep command to display only those lines that do not contain file02 through file08
+ls ./test_day8 | grep -v 'file0[2-8]'
+	1.7	Create an extra set of files named FILE01 through FILE20 in test_day8 directory
+touch test_day8/FILE{01..20}
+	1.8	List the file names in test_day8 directory and filter the output using the grep 	command to display only those lines that start with f or F and end with 11 through 19
+ls ./test_day8 | grep -i 'file1[1-9]'
+	1.9	Add line numbers to the output of the above command
+ls ./test_day8 | grep -in 'file1[1-9]'
+	1.10	List the file names in test_day8 directory and filter the output using the grep 		command with POSIX character classes to display only those lines that include a lower 		case letter followed by a digit 
+ls ./test_day8 | grep [[:lower:]][[:digit:]]
+	1.11	Create a file named test.txt and add the following lines 
+
+	Comuter
+	Computer
+	Compputer
+nano test.txt
+	1.12	Display lines with Comuter or Computer in test.txt
+cat test.txt | grep -Eh "mu|mpu"
+	1.13	Display lines with Computer or Compputer
+grep 'mp[u|p]' test.txt
+
+
+2. Chapter 20 Text Processing
+
+	2.1	Create a new file named famous_ships and fill it with the following (exactly)
+
+	Millennium Falcon
+	USS Enterprise
+	Death Star
+	Y Wing
+	Battlestar Galactica
+	Death Star
+
+nano famous_ships
+
+	2.2	Sort the famous_ship file
+sort famous_ships
+	2.3	Sort the famous ship file in reverse
+sort -r famous_ships
+	2.4	Display the number of ships in the famous_ships file
+wc -l famous_ships  
+	2.5	Display how many words are in the famous_ships file
+wc -w famous_ships
+	2.6	Display how many characters are in the famous_ships file
+wc -m famous_ships
+	2.7 Display only the first part (before the first space) of every ship name in the 		famous_ships file and redirect the output put a file named famous_ship_first
+cut -d ' ' -f 1 famous_ships > famous_ship_first
+
+	2.8	Display only the last part (after the first space) of every ship name in the 	famous_ships file and redirect the output put a file named famous_ship_last 
+cut -d ' ' -f 2 famous_ships > famous_ship_last
+	2.9 	Display the names of famous ships with the last part of names first followed by 		the first part of the name 
+paste famous_ship_last famous_ship_first
+	2.10	Display the names of famous ships in the famous_ships file without any duplicate
+sort famous_ships | uniq
+	2.11	Create a copy of famous_ships and name it famous_ships2.  Add Firefly to the 	bottom of the list of famous_ships2
+cp famous_ships famous_ships2
+	2.12	Using the diff command with context option, display the differences between 		famous_ships and famous_ships2
+diff famous_ships famous_ships2
+	2.13	Redirect the output of the above command to diff_ship
+diff famous_ships famous_ships2 > diff_ship
+	2.14	Patch famous_ships file using diff_ship
+patch < diff_ship
+	2.15	Check the spelling of the famous_ships file
+aspell check famous_ships

@@ -1,0 +1,61 @@
+CIT 112 Hands-on Application Activity 
+Week 12
+
+1. Chapter 14. Package Management 
+
+* Use apt command, instead of apt-get, apt-cache, or dpkg
+* Consult the apt man page for command options
+
+	1.1. Get the latest list of available packages from the software repositories 
+sudo apt update
+	1.2. Check if the vim package has been installed on your system or not
+apt list | grep vim
+	1.3. List all packages that are upgradable in your system
+sudo apt list --upgradable
+	1.4. Install all upgradable packages 
+sudo apt upgrade
+	1.5. Search for packages relating to libreoffice
+apt list libreoffice
+	1.6. Install the libreoffice package
+sudo apt install libreoffice
+	1.7. Run libreoffice as a background process
+libreoffice &
+	1.8. Create a document with libreoffice with your name as the body of the message. Save 		it as librefile1.docx using the Word 2007-365 (.docx) format in the Documents folder.
+
+	1.9. Quit libreoffice
+
+	1.10. Verify librefile1.docx exists in ~/Documents folder
+ls ~/Documents
+	1.11. Show information about the libreoffice package
+apt show libreoffice
+	1.12. Remove the libreoffice package
+sudo apt remove libreoffice
+
+2. Chapter 15. Storage Media
+
+	2.1. Physically Insert a USB drive to a USB port on your PC
+
+	2.2. Attach it to the Ubuntu VM on VirtualBox (Devices -> USB -> Your USB device)
+
+	2.3. Display the device file name (e.g. /dev/sdb1) associated with the inserted USB drive
+df
+	2.4. Unmount the USB drive (Your USB drive should have been automounted when you attached 		it to Ubuntu VM)
+sudo umount /dev/sdb1
+	2.5. Create a mount point at /mnt/MyUSB
+sudo mkdir /mnt/MyUSB
+	2.6. Mount the USB drive at the above mount point
+sudo mount /dev/sdb1 /mnt/MyUSB
+	2.7. Show the list of mounted drives, including the USB drive you've just mounted
+df
+	2.8. Display the list of files in /mnt/MyUSB
+ls /mnt/MyUSB
+	2.9. Copy librefile1.docx file you created in a previous step to your USB drive (This 		operation may not succeed depending on how your USB drive is mounted.)
+cp ~/Documents/librefile1.docx /mnt/MyUSB
+	2.10. Unmount the USB drive 
+sudo umount /mnt/MyUSB
+	2.11. Eject the USB drive from Ubuntu VM
+sudo eject /dev/sdb1
+	2.12. Detach the USB drive from the Ubuntu VM on VirtualBox (Devices -> USB -> Your USB 		device)
+
+	2.13. Physically remove the USB drive from the USB port on your PC
+

@@ -1,0 +1,53 @@
+CIT 112 Hands-on Application Activity 
+Week 02
+
+
+1. Chapter 1. What Is the Shell? 
+
+1.1 Open a terminal and enter a command to display the current date and time
+	date       
+1.2 Display the current month’s calendar with a Linux command
+	cal
+1.3 Display the calendar for the month when Linux was first created (August 1991)
+	cal August 1991
+1.4 Display the amount of free space left on your hard drive in human readable format 
+	df -h
+1.5 Display the amount of memory used and unused in human readable format
+	free -h
+
+
+2. Chapter 2. Navigation
+
+2.1 Print your current working directory 
+	pwd
+2.2 Using a relative path name, change your working directory to /home
+	cd ..
+2.3 Using an absolute pathname, change your directory to your user’s home directory
+	cd /home/isaac
+2.4 Using a relative pathname, change your working directory to your user’s Documents directory
+	cd ./Documents
+2.5 Using a relative pathname, change your working directory from Documents to your user’s Pictures directory.  Do it in one step/command.   
+	cd ../Pictures
+2.6 Using a relative pathname, change your directory from Pictures to /bin directory 
+	cd ../../../bin
+2.7 Using an absolute pathname, switch from /bin directory to /dev directory 
+	cd /dev
+2.8 Switch back to your home directory using the least amount of keystrokes
+	cd ~
+
+3. Chapter 3. Exploring the System
+
+3.1 List all files and directories (except hidden ones) in your home directory
+	ls
+3.2 Display a long listing of everything in the /etc directory
+	ls -l /etc
+3.3 Display a long listing of all the files, including hidden files, in your home directory
+	ls -al
+3.4 What type (e.g. symbolic link, ASCII text, directory, etc.) of file is /etc/passwd?
+	file /etc/passwd
+3.5 What type (e.g. symbolic link, ASCII text, directory, etc.) of file is ~/Downloads?
+	file ~/Downloads
+3.6 What types (e.g. symbolic link, ASCII text, directory, etc.) of files are /usr/bin/sh and /etc/netplan?  Given the command in one line ( do not use ; ).
+	file /usr/bin/sh /etc/netplan
+3.7 View the contents of the /etc/passwd file
+	less /etc/passwd

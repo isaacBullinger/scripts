@@ -1,0 +1,60 @@
+﻿CIT 112 Hands-on Application Activity 
+Week 05 
+
+
+	1. Chapter 9. Permissions 
+
+	1.1. Check what groups you are a part of
+id
+	1.2. Create a new file called test1 in your Day5 directory 
+touch Day5/test1
+	1.3. Check the base permissions of test1 
+ls -l test1
+	1.4. Add execute permission to the user and add write permission to others on test1
+chmod u+x,o+w test1
+	1.5. Change the permission of test1 to read only for user, group, and others
+chmod a=r test1
+	1.6. Change the permission of test1 to full control to user, read and execute to group 		and read and execute to others using mode values
+chmod 755 test1
+	1.7. Display the setting for the default file permission when creating a new file
+umask
+	1.8. Switch to the root user without logging out of your account
+su - root
+	1.9. Exit out of the root user and return to the user
+exit
+	1.10. Display the content of the file /etc/ppp/chap-secrets without switching to the root 		user
+su -c 'less /etc/ppp/chap-secrets'
+	1.11. Change the owner and group of the test1 file to the root user
+sudo chown root:root test1
+
+
+	2. Chapter 10. Processes
+
+	2.1. Display all processes started from the current terminal
+ps
+	2.2. Display all processes running in the system including ones started by other users
+ps x
+	2.3. Start the process xeyes in the foreground (to start xeyes type xeyes)
+xeyes
+	2.4. Suspend xeyes
+^z
+	2.5. List the suspended and background jobs
+jobs
+	2.6. Bring xeyes to the foreground
+fg %1
+	2.7. Move xeyes to the background
+^z
+bg %1
+	2.8. Kill xeyes using the kill command with the absolute kill signal
+kill -9
+	2.9. Start 3 xeyes instances in the background
+xeyes &
+xeyes &
+xeyes &
+	2.10. Kill all xeyes you started in the above step in one shot
+killall xeyes
+	2.11. Display a dynamic real-time view of the processes running on the system
+top
+	2.12. Display the processes running on the system in a tree structure
+pstree
+

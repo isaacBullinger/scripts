@@ -1,0 +1,77 @@
+CIT 112 Hands-on Application Activity 
+Week 07
+
+1.  Chapter 17 Searching for files
+
+	1.1 	Create a file named findme.txt
+touch findme.txt
+	1.2 	Update the locate database  
+sudo updatedb
+	1.3 	Use the locate command to find the findme.txt file
+locate findme.txt
+	1.4 	Use the locate command to find any file that ends with.txt
+locate *.txt
+	1.5 	In your home directory, use the find command to find the findme.txt
+find ~ -name findme.txt
+	1.6 	Using the find command to find all files that end with .txt under your home 		directory, and redirect the output to a file named results.txt
+find ~ -name "*.txt" > results.txt
+	1.7 	Create a new file in your home directory named FILE1
+touch FILE1
+	1.8 	Now using the find command, find all files under your home directory that start 		with the word file without the search being case sensitive. Then pipe the output to the 		less command to view the results
+find ~ -iname "file*" | less
+	1.9 	Using the find command, search for every directory (no regular files) under /etc 		directory and pipe the result through less
+find /etc -type d | less
+	1.10 	Using the find command, search for all files in your home directory that are 	under 5KB in size
+find ~ -type f -size -5k
+	1.11 	Using the find command, find all files under your home directory that have the 		permissions set to 0775.
+find ~ -type f -perm 0775
+	1.12 	Using the find command, search for all files that are zero bytes long under your 		home directory
+find -type f -size 0
+
+
+2. Chapter 18 Archiving and Backup
+
+	2.1 	Using the file named results.txt from the earlier exercise, compress it with the 		gzip utility with the default compression level.
+gzip results.txt
+	2.2 	Using the gzip utility, uncompressed the results.txt file
+gunzip results.txt
+	2.3 	Using the gzip utility, compress the results.txt file with the highest level of 		compression.
+gzip -9 results.txt
+	2.4 	Create a new directory named testcompress.  Under testcompress directory, create 		subdirectories dir01 through dir10.  In each subdirectory in dir01 through dir10, create 		files fileA through fileZ
+mkdir testcompress
+mkdir dir{01..10} && touch dir{01..10}/file{A..Z}
+
+	2.5 	Using gzip utility, compress all files under the testcompress directory and 		subdirectories.
+gzip -r testcompress
+	2.6 	Now uncompress all the files in the testcompress directory and subdirectories.
+gunzip -r testcompress
+	2.7 	Display the content of results.txt.gz without uncompressing it
+gunzip -c results.txt.gz | less
+	2.8 	Decompress the results.txt.gz file
+gunzip results.txt.gz
+	2.9 	Now compress the results.txt file using the bzip2 utility
+bzip2 results.txt
+	2.10 	Decompress the results.txt.bz2 file
+bunzip2 results.txt.bz2
+	2.11 	Compress the results.txt file using the highest level of compression you can with 		bzip2
+bzip2 --best results.txt
+	2.12 	Now view the contents of the results.txt file without decompressing it
+less results.txt.bz2
+	2.13 	Create a tape archive of the testcompress directory and call it testcompress.tar
+tar cf testcompress.tar testcompress
+	2.14 	Create a new directory named testtar and change to that directory
+mkdir testtar; cd testtar
+	2.15 	Untar the testcompress.tar to the testtar directory
+tar xf ../testcompress.tar
+	2.16 	Under the testtar directory, create gzip compressed tar file 
+	(testcompress.tar.gz) of the testcompress directory
+tar cfz testcompress.tar.gz testcompress
+	2.17 	Create 3 files named test1 test 2 and test3 then compress them into tests.zip 	file using the zip utility 
+mkdir tests
+touch tests/test{1..3}
+zip -r tests.zip test{1..3}
+	2.18 	Lists the contents of tests.zip without uncompressing it
+unzip -l tests.zip
+	2.19 	Restore the files from tests.zip
+unzip tests.zip
+
